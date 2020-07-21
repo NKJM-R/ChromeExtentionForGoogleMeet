@@ -1,55 +1,73 @@
 class Sound {
-    logout() {
-        const sound = new Audio("https://soundeffect-lab.info/sound/anime/mp3/drum-japanese2.mp3")
-        sound.play()
-    }
+  constructor(source) {
+    // 音源
+    this.source = source;
+  }
+  play() {
+    Audio(this.source).play();
+  }
+}
+
+class Person {
+  constructor() {
+    this.name = null;
+    this.image = null;
+  }
 }
 
 class Meet {
-    constructor() {
-        this.sound = new Sound()
-        this.count = 0
+  constructor() {
+    this.sounds = {};
+    this.people = [];
+    this.events = ["LOGOUT"];
+  }
 
-        const target = document.getElementById('root')
-        const observer = new MutationObserver(value => {
-            this.count = target
-        })
-        observer.observe(target, { characterData: true })
-    }
+  addMember(member) {
+    this.members.push(member);
+  }
 
-    playSound() {
-        this.sound.logout()
-    }
+  setSound(name, source) {
+    this.sound[name] = new Sound(source);
+  }
+
+  playSound(name) {
+    this.sounds[name].play();
+  }
+
+  logout(soundName) {
+    this.playSound(soundName);
+  }
 }
 
-class ObserveMeet {
-    constructor() {
-        this.meet = new Meet()
-    }
-    sleep(waitTime) {
-        const startTime = new Date();
-        while (new Date() - startTime < waitTime);
-    }
+class EventObserve {
+  constructor(meet) {
+    this.meet = meet;
+  }
+  run() {
+    // @TODO: 考慮の余地あり
+    // this.enventWatch();
+  }
 
-    alerting(oldValu, newValue) {
-        if (oldValu > newValue) {
-            this.meet.sound.logout()
-        }
-    }
+  eventPerception() {
+    if (false) this.eventLogin();
+    if (false) this.eventLogout();
+  }
 
-    watchValue() {
-        let value = this.meet["count"];
-        Object.defineProperty(this.meet, "count", {
-            get: () => value,
-            set: newValue => {
-                const oldValue = value;
-                value = newValue;
-                this.alerting(oldValue, newValue);
-            },
-            configurable: true
-        });
-    }
+  eventLogout() {}
+
+  eventLogin() {}
+
+  // @TODO: 考慮の余地あり
+  eventWatch(propaty) {
+    let value = this.meet[propaty];
+    Object.defineProperty(this.meet, propaty, {
+      get: () => value,
+      set: () => {},
+      configurable: true,
+    });
+  }
 }
 
-const observer = new ObserveMeet()
-observer.watchValue()
+const meet = new Meet();
+const observer = new EventObserve(meet);
+observer.run();
