@@ -1,22 +1,16 @@
 {
-    "name": "SAMPLE_2",
-    "manifest_version": 2,
-    "version": "1.0",
-    "browser_action": {
-        "default_title": "SAMPLE_2",
-        "default_popup": "popup.html"
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "http://localhost:8080/"
-            ],
-            "js": [
-                "content_script.js"
-            ]
-        }
-    ],
-    "permissions": [
-        "tabs"
-    ]
+  "name": "GoogleMeetExtention",
+  "manifest_version": 2,
+  "version": "1.0",
+  "browser_action": {
+    "default_title": "クロコダイン",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["content_script.js"]
+    }
+  ],
+  "permissions": ["tabs"]
 }
